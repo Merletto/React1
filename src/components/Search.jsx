@@ -14,7 +14,7 @@ const Search = ({SearchTerm, setSearchTerm}) => {
           />
         </div>
     </div>
-  )
+  ) 
 }
 
 export default Search   
