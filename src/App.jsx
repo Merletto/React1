@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import Profile from './pages/Profile'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register'
+import PrivateRoutes from './utils/PrivateRoutes.jsx'
 
 function App() {
 
@@ -14,8 +15,11 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login/>}/>
           <Route path="/register" element={<Register/>}/>
-          <Route path="/" element={<Home/>}/>
-          <Route path="/profile" element={<Profile/>}/>
+
+          <Route element={<PrivateRoutes/>}> //Parent child routes
+            <Route path="/" element={<Home/>}/>
+            <Route path="/profile" element={<Profile/>}/>
+          </Route>
         </Routes>
     </Router>
   )
