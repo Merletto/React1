@@ -1,34 +1,25 @@
-import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+// Header.jsx
+import React from "react";
 
 const Header = () => {
-    const navigate = useNavigate()
-
-    const logoutClick = () => {
-        navigate('/login')
-    }
-
   return (
-    <div className="header">
-        <div>
-            <Link id="header-logo" to="/">LOGO</Link>
-        </div>
+    <header className="w-[80%] mx-auto flex justify-between items-center px-5 sm:px-10 py-4 fixed top-0 z-20 backdrop-blur-md">
+      {/* Home */}
+      <button className="text-white font-bold text-lg hover:text-light-100 transition-colors">
+        Home
+      </button>
 
-        <div className="links--wrapper">
-            <>
-                <Link to="/" className="header--link">Home</Link>
-                <Link to="/profile" className="header--link">Profile</Link>
+      {/* Botones de perfil y logout */}
+      <div className="flex gap-4">
+        <button className="text-white font-medium hover:text-light-100 transition-colors">
+          Profile
+        </button>
+        <button className="text-white font-medium hover:text-light-100 transition-colors">
+          Logout
+        </button>
+      </div>
+    </header>
+  );
+};
 
-                <button onClick={logoutClick} className="btn">Logout</button>
-            </>
-            {/* <>
-
-                <Link className="btn" to="/login">Login</Link>
-            </> */}
-            
-        </div>
-    </div>
-  )
-}
-
-export default Header
+export default Header;
