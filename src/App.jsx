@@ -6,6 +6,8 @@ import MovieCard from './components/MovieCard.jsx';
 import { useDebounce } from 'react-use';
 import { updateSearchCount } from './appwrite.js';
 import { getTrendingMovies } from './appwrite.js';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 

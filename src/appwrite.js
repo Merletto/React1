@@ -1,4 +1,5 @@
-import { Client, Databases, Query, ID } from 'appwrite';
+import { Client, Databases, Query, ID, Account } from 'appwrite';
+
 
 const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID; 
 const COLLECTION_ID = import.meta.env.VITE_APPWRITE_COLLECTION_ID;
