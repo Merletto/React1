@@ -1,10 +1,12 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useRef} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../utils/AuthContext.jsx';
 
 const Login = () => {
-  const {user} = useAuth()
+  const {user, loginUser} = useAuth()
   const navigate = useNavigate()
+
+  const loginForm = useRef(null)
 
   useEffect(() => {
     if (user){
@@ -12,12 +14,20 @@ const Login = () => {
     }
   }, [])
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const email = loginForm.current.email.value
+    const password = loginForm.current.password.value
+
+    const userInfo = {email,password}
+    loginUser(userInfo)
+  }
   return (
     <main>
     <div className='pattern'>
     <div className="container mt-24">
         <div className="login-register-container">
-          <form>
+          <form ref={loginForm} onSubmit={handleSubmit}>
 
             <div className="form-field-wrapper">
                 <label>Email:</label>

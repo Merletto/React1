@@ -46,3 +46,5 @@ export const getTrendingMovies = async () => {
         console.error(error);
     }
 }
+
+export const account = new Account(client);
