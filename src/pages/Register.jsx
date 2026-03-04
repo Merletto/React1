@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom'
 
 const Register = () => {
   return (
-    <div className="container">
+    <main>
+    <div className='pattern'>
+    <div className="container mt-24">
       <div className="login-register-container">
         <form>
 
-          <div className="form-field-wrapper">
+            <div className="form-field-wrapper">
                 <label>Name:</label>
                 <input 
                   required
@@ -62,6 +64,8 @@ const Register = () => {
 
       </div>
   </div>
+  </div>
+  </main>
   )
 }
 

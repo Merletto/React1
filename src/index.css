@@ -160,3 +160,59 @@
     display: none;
   }
 }
+
+@layer components {
+  .container {
+    @apply min-h-screen flex items-center justify-center px-5 relative z-10;
+  }
+
+  .login-register-container {
+    @apply w-full max-w-md bg-dark-100 p-8 rounded-2xl shadow-inner shadow-light-100/10 backdrop-blur-md;
+  }
+
+  .login-register-container form {
+    @apply space-y-6;
+  }
+
+  .form-field-wrapper {
+    @apply flex flex-col gap-2;
+  }
+
+  .form-field-wrapper label {
+    @apply text-light-200 text-sm font-medium;
+  }
+
+  .form-field-wrapper input[type="text"],
+  .form-field-wrapper input[type="email"],
+  .form-field-wrapper input[type="password"] {
+    @apply bg-light-100/5 border border-light-100/10 
+           text-white placeholder-light-200 
+           px-4 py-3 rounded-lg 
+           outline-none transition-all duration-300;
+  }
+
+  .form-field-wrapper input[type="text"],
+  .form-field-wrapper input[type="email"]:focus,
+  .form-field-wrapper input[type="password"]:focus {
+    @apply border-light-100/40 shadow-md shadow-light-100/10;
+  }
+
+  .btn {
+    @apply w-full bg-light-100 text-primary 
+           font-bold py-3 rounded-lg 
+           cursor-pointer 
+           transition-all duration-300;
+  }
+
+  .btn:hover {
+    @apply bg-light-200;
+  }
+
+  .login-register-container p {
+    @apply text-center text-gray-100 mt-6 text-sm;
+  }
+
+  .login-register-container a {
+    @apply text-light-100 font-semibold hover:underline;
+  }
+}

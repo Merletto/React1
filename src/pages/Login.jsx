@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom'
 
 const Login = () => {
   return (
-    <div className="container">
+    <main>
+    <div className='pattern'>
+    <div className="container mt-24">
         <div className="login-register-container">
           <form>
 
@@ -43,6 +45,8 @@ const Login = () => {
 
         </div>
     </div>
+    </div>
+    </main>
   )
 }
 
