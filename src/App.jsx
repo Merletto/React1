@@ -5,11 +5,13 @@ import Profile from './pages/Profile'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register'
 import PrivateRoutes from './utils/PrivateRoutes.jsx'
+import { AuthProvider } from './utils/AuthContext.jsx'
 
 function App() {
 
   return (
     <Router>
+      <AuthProvider>
         <Header/>
         <Routes>
           <Route path="/login" element={<Login/>}/>
@@ -19,7 +21,9 @@ function App() {
             <Route path="/" element={<Home/>}/>
             <Route path="/profile" element={<Profile/>}/>
           </Route>
+          
         </Routes>
+      </AuthProvider>
     </Router>
   )
 }
