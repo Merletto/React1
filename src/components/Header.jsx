@@ -6,11 +6,7 @@ import { useAuth } from "../utils/AuthContext.jsx";
 const Header = () => {
   const navigate = useNavigate();
 
-  const {user} = useAuth()
-
-  const logoutClick = ( ) => {
-    navigate("/login")
-  }
+  const {user, logoutUser} = useAuth()
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 backdrop-blur-md">
@@ -30,7 +26,7 @@ const Header = () => {
           <Link to="/profile" className=" text-white font-medium hover:text-light-100 transition-colors duration-300">
             Profile
           </Link>
-          <button onClick={logoutClick} className="text-white font-medium hover:text-light-100 transition-colors duration-300">
+          <button onClick={logoutUser} className="text-white font-medium hover:text-light-100 transition-colors duration-300">
             Logout
           </button>
         </div>
