@@ -4,6 +4,7 @@ import { Client, Databases, Query, ID, Account } from 'appwrite';
 const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID; 
 const COLLECTION_ID = import.meta.env.VITE_APPWRITE_COLLECTION_ID;
 const PROJECT_ID = import.meta.env.VITE_APPWRITE_PROJECT_ID;
+const FAVORITES_COLLECTION_ID = import.meta.env.VITE_APPWRITE_FAVORITES_COLLECTION_ID;
 
 const client = new Client()
     .setEndpoint('https://nyc.cloud.appwrite.io/v1')
@@ -48,3 +49,46 @@ export const getTrendingMovies = async () => {
 }
 
 export const account = new Account(client);
+
+export const toggleFavorite = async (movie, userId) => {
+  try {
+
+    const result = await database.listDocuments(
+      DATABASE_ID,
+      FAVORITES_COLLECTION_ID,
+      [
+        Query.equal("user_id", userId),
+        Query.equal("movie_id", movie.id)
+      ]
+    )
+
+    if (result.documents.length > 0) {
+
+      // ya existe → eliminar (unlike)
+      await database.deleteDocument(
+        DATABASE_ID,
+        FAVORITES_COLLECTION_ID,
+        result.documents[0].$id
+      )
+
+    } else {
+
+      // no existe → crear favorito
+      await database.createDocument(
+        DATABASE_ID,
+        FAVORITES_COLLECTION_ID,
+        ID.unique(),
+        {
+          user_id: userId,
+          movie_id: movie.id,
+          poster_url: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+          title: movie.title
+        }
+      )
+    }
+
+  } catch (error) {
+    console.error(error)
+  }
+}
+

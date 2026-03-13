@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../utils/AuthContext.jsx";
 
 const Header = () => {
-  const navigate = useNavigate();
+  
 
   const {user, logoutUser} = useAuth()
 
