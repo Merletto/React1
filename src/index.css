@@ -216,3 +216,15 @@
     @apply text-light-100 font-semibold hover:underline;
   }
 }
+
+@layer components {
+
+  .profile-container {
+    @apply min-h-screen px-5 pt-32 relative z-10;
+  }
+
+  .profile-content {
+    @apply max-w-7xl mx-auto;
+  }
+
+}

@@ -92,3 +92,21 @@ export const toggleFavorite = async (movie, userId) => {
   }
 }
 
+export const getFavorites = async (userId) => {
+  try {
+
+    const result = await database.listDocuments(
+      DATABASE_ID,
+      FAVORITES_COLLECTION_ID,
+      [
+        Query.equal("user_id", userId)
+      ]
+    )
+
+    return result.documents
+
+  } catch (error) {
+    console.error(error)
+    return []
+  }
+}
