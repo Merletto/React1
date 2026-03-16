@@ -64,7 +64,6 @@ export const toggleFavorite = async (movie, userId) => {
 
     if (result.documents.length > 0) {
 
-      // ya existe → eliminar (unlike)
       await database.deleteDocument(
         DATABASE_ID,
         FAVORITES_COLLECTION_ID,
@@ -73,7 +72,6 @@ export const toggleFavorite = async (movie, userId) => {
 
     } else {
 
-      // no existe → crear favorito
       await database.createDocument(
         DATABASE_ID,
         FAVORITES_COLLECTION_ID,
@@ -110,3 +108,4 @@ export const getFavorites = async (userId) => {
     return []
   }
 }
+

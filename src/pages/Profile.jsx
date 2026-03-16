@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import { getFavorites } from "../appwrite.js"
 import { useAuth } from "../utils/AuthContext"
 import MovieCard from '../components/MovieCard.jsx';
@@ -15,50 +15,55 @@ const API_OPTIONS = {
 }
 
 const Profile = () => {
-
   const { user } = useAuth()
   const [movies, setMovies] = useState([])
+  const [favorites, setFavorites] = useState([])
+
+  const loadFavorites = useCallback(async () => {
+    if (!user) return
+    const favs = await getFavorites(user.$id)
+    setFavorites(favs)
+    return favs
+  }, [user])
 
   useEffect(() => {
-
     const fetchFavorites = async () => {
-
-      const favorites = await getFavorites(user.$id)
+      const favs = await loadFavorites()
+      if (!favs?.length) return
 
       const moviesData = await Promise.all(
-        favorites.map(async (fav) => {
-          const res = await fetch(
-            `${API_BASE_URL}/movie/${fav.movie_id}`,
-            API_OPTIONS
-          )
+        favs.map(async (fav) => {
+          const res = await fetch(`${API_BASE_URL}/movie/${fav.movie_id}`, API_OPTIONS)
           return res.json()
         })
       )
-
       setMovies(moviesData)
     }
 
-    if (user) {
-      fetchFavorites()
-    }
-
-  }, [user])
+    fetchFavorites()
+  }, [loadFavorites])
 
   return (
-    <main >
-    <div className='pattern'/>
-    <div className="profile-container">
-    
-    <section className='all-movies'>
+    <main>
+      <div className='pattern'/>
+      <div className="profile-container">
+        <section className='all-movies'>
+          <div className="flex items-center justify-center relative z-10">
+            <h1>Bienvenido, {user.name}</h1>
+          </div>
           <h2>Peliculas favoritas</h2>
-            <ul>
-              {movies.map((movie) => (
-                <MovieCard key={movie.id} movie={movie} />
-              ))}; 
-            </ul>
-          
-    </section>
-    </div>
+          <ul>
+            {movies.map((movie) => (
+              <MovieCard
+                key={movie.id}
+                movie={movie}
+                favorites={favorites}
+                onFavoriteChange={loadFavorites}
+              />
+            ))}
+          </ul>
+        </section>
+      </div>
     </main>
   )
 }

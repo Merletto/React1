@@ -8,6 +8,8 @@ import { updateSearchCount } from '../appwrite.js';
 import { getTrendingMovies } from '../appwrite.js';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Link } from "react-router-dom";
+import { getFavorites } from '../appwrite.js';
+import { useAuth } from '../utils/AuthContext.jsx';
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 
@@ -22,6 +24,8 @@ const API_OPTIONS = {
 }
 
 const App = () => {
+  const { user } = useAuth();  
+  const [favorites, setFavorites] = useState([]);
   const [SearchTerm, setSearchTerm] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [movieList, setmovieList] = useState([]);
@@ -73,6 +77,12 @@ const App = () => {
     }
   }
 
+  const loadFavorites = async () => {
+    if (!user) return
+    const favs = await getFavorites(user.$id)
+    setFavorites(favs)
+  }
+
   useEffect(() => {
     fetchMovies(debouncedSearchTerm);
   }, [debouncedSearchTerm])
@@ -80,6 +90,10 @@ const App = () => {
   useEffect(() => {
     loadTrendingMovies();
   }, [])
+
+  useEffect(() => {
+    loadFavorites()
+  }, [user])
 
   return (
     <main>
@@ -118,7 +132,7 @@ const App = () => {
           ) : (
             <ul>
               {movieList.map((movie) => (
-                <MovieCard key={movie.id} movie={movie} />
+                <MovieCard key={movie.id} movie={movie} favorites={favorites} onFavoriteChange={loadFavorites}/>
               ))}; 
             </ul>
           )}
